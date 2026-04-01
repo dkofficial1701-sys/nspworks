@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NSP Works — Big Tech. Small Price.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #E8F0E0;
+    --paper: #0D1A0F;
+    --primary: #00D4AA;
+    --secondary: #7FD94A;
+    --accent1: #00B890;
+    --accent2: #1A2E12;
+    --accent3: #A8E063;
+    --card-bg: #142010;
+    --muted: #8AAF7A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,26,15,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(127,217,74,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--primary); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #8AAF7A;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 2px;
+    background: #00D4AA;
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: #00D4AA;
+    color: var(--paper) !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #7FD94A !important; color: #0D1A0F !important; transform: translateY(-2px); }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 5rem 4rem;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(127,217,74,0.15);
+    color: #7FD94A;
+    border: 1px solid rgba(127,217,74,0.4);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    border: 2px solid var(--ink);
+    width: fit-content;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before { content: '⚡'; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-title .highlight {
+    position: relative;
+    display: inline-block;
+    color: #00D4AA;
+  }
+  .hero-title .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 8px;
+    background: rgba(127,217,74,0.3);
+    z-index: -1;
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: #00D4AA;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.9rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    border: 1px solid rgba(0,212,170,0.5);
+    box-shadow: 0 4px 20px rgba(0,212,170,0.2);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,212,170,0.3); }
+
+  .btn-secondary {
+    background: transparent;
+    color: #8AAF7A;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.9rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    border: 1px solid rgba(127,217,74,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); background: rgba(127,217,74,0.1); color: #7FD94A; }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0A1A0C;
+    overflow: hidden;
+  }
+
+  .hero-graphic {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .circle-big {
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(0,212,170,0.3);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: spin 20s linear infinite;
+  }
+  .circle-mid {
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(127,217,74,0.3);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: spin 14s linear infinite reverse;
+  }
+  .circle-small {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(0,184,144,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: spin 8s linear infinite;
+  }
+  .circle-center {
+    position: absolute;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--paper);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--ink);
+    z-index: 10;
+  }
+
+  .floating-tag {
+    position: absolute;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 3px 3px 0 var(--ink);
+    white-space: nowrap;
+    animation: float 3s ease-in-out infinite;
+  }
+  .tag1 { top: 10%; left: 5%; animation-delay: 0s; background: rgba(127,217,74,0.15); color: #7FD94A; border-color: rgba(127,217,74,0.4); }
+  .tag2 { bottom: 15%; left: 3%; animation-delay: 0.8s; background: rgba(0,212,170,0.15); color: #00D4AA; border-color: rgba(0,212,170,0.4); }
+  .tag3 { top: 20%; right: 5%; animation-delay: 1.6s; background: rgba(0,184,144,0.15); color: #00B890; border-color: rgba(0,184,144,0.4); }
+  .tag4 { bottom: 10%; right: 3%; animation-delay: 2s; background: rgba(168,224,99,0.15); color: #A8E063; border-color: rgba(168,224,99,0.4); }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid rgba(127,217,74,0.2);
+    background: #142010;
+    padding: 0.8rem 0;
+    border-top: 1px solid rgba(127,217,74,0.2);
+    border-bottom: 1px solid rgba(127,217,74,0.2);
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0 2rem;
+    white-space: nowrap;
+    color: #8AAF7A;
+  }
+  .marquee-dot { color: #00D4AA; margin: 0 0.5rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #00D4FF;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: #0D1A0F; }
+  .services-header { text-align: center; margin-bottom: 4rem; }
+  .services-header .section-sub { margin: 0 auto 3rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: #142010;
+    border: 1px solid rgba(127,217,74,0.15);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: rgba(0,212,170,0.35); }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+  }
+  .card-orange::before { background: #00D4AA; }
+  .card-yellow::before { background: #7FD94A; }
+  .card-teal::before { background: #00B890; }
+  .card-purple::before { background: #A8E063; }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    color: #E8F0E0;
+  }
+  .service-card p {
+    font-size: 0.88rem;
+    color: #8AAF7A;
+    line-height: 1.6;
+  }
+
+  /* ── WORK ── */
+  #work { background: #0B1628; color: #F0F6FF; }
+  #work .section-label { color: #00FF9C; }
+  #work .section-sub { color: #aaa; }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .work-card {
+    border-radius: 1rem;
+    padding: 2.5rem;
+    border: 2px solid rgba(255,255,255,0.15);
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .work-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.4); }
+
+  .wc1 { background: linear-gradient(135deg, #0A2A1A 0%, #0D3A20 100%); border: 1px solid rgba(0,212,170,0.3); }
+  .wc2 { background: linear-gradient(135deg, #006644 0%, #00B380 100%); }
+  .wc3 { background: linear-gradient(135deg, #142010 0%, #1A2E12 100%); border: 1px solid rgba(127,217,74,0.2); }
+
+  .work-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+  .work-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 0.7rem;
+  }
+  .work-card p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .work-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .stack-pill {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.25rem 0.7rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* ── WHY ── */
+  #why {
+    background: #0A150C;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; }
+  .why-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    background: #142010;
+    border: 1px solid rgba(127,217,74,0.2);
+    border-radius: 0.75rem;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+  .why-item:hover { transform: translateY(-3px); border-color: rgba(0,212,170,0.4); }
+  .why-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+  .wi1 { background: rgba(127,217,74,0.2); }
+  .wi2 { background: rgba(0,212,170,0.15); }
+  .wi3 { background: rgba(0,184,144,0.15); }
+  .wi4 { background: rgba(168,224,99,0.15); }
+
+  .why-item-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+  .why-item-text p { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+
+  .why-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .stat-box {
+    border: 1px solid rgba(127,217,74,0.25);
+    border-radius: 1rem;
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .sb1 { background: rgba(0,212,170,0.15); color: #00D4AA; }
+  .sb2 { background: rgba(127,217,74,0.15); color: #7FD94A; }
+  .sb3 { background: rgba(0,184,144,0.15); color: #00B890; }
+  .sb4 { background: rgba(168,224,99,0.15); color: #A8E063; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label { font-size: 0.78rem; font-weight: 500; opacity: 0.85; }
+
+  /* ── PRICING ── */
+  #pricing { background: #0D1A0F; text-align: center; }
+  #pricing .section-sub { margin: 0 auto 3rem; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .price-card {
+    background: #142010;
+    border: 1px solid rgba(127,217,74,0.2);
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .price-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); border-color: rgba(0,212,170,0.4); }
+  .price-card.featured {
+    background: #0A2018;
+    color: #F0F6FF;
+    transform: scale(1.05);
+  }
+  .price-card.featured:hover { transform: scale(1.05) translateY(-5px); }
+
+  .featured-badge {
+    position: absolute;
+    top: -14px; left: 50%; transform: translateX(-50%);
+    background: #00D4AA;
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(0,212,170,0.3);
+    white-space: nowrap;
+  }
+
+  .price-tier {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #00D4AA;
+    margin-bottom: 0.5rem;
+  }
+  .price-card.featured .price-tier { color: var(--secondary); }
+
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+  }
+  .price-sub-text { font-size: 0.8rem; color: #8AAF7A; margin-bottom: 1.5rem; }
+  .price-card.featured .price-sub-text { color: #aaa; }
+
+  .price-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .price-features li {
+    font-size: 0.85rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(127,217,74,0.1);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .price-card.featured .price-features li { border-color: rgba(255,255,255,0.1); }
+  .price-features li::before { content: '✓'; color: var(--accent1); font-weight: 700; }
+
+  .price-btn {
+    display: block;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    transition: transform 0.15s, background 0.15s;
+  }
+  .price-btn-outline { background: transparent; color: #8AAF7A; border-color: rgba(127,217,74,0.3); }
+  .price-btn-outline:hover { background: rgba(127,217,74,0.1); border-color: #7FD94A; color: #7FD94A; }
+  .price-btn-filled { background: #00D4AA; color: #0D1A0F; }
+  .price-btn-filled:hover { background: #7FD94A; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: #0B1628;
+    color: #F0F6FF;
+    text-align: center;
+  }
+  #contact .section-label { color: #00FF9C; }
+  #contact .section-sub { color: #aaa; margin: 0 auto 2.5rem; }
+
+  .contact-box {
+    background: rgba(127,217,74,0.05);
+    border: 1px solid rgba(127,217,74,0.15);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-input {
+    background: rgba(127,217,74,0.05);
+    border: 1px solid rgba(127,217,74,0.15);
+    border-radius: 0.6rem;
+    padding: 0.85rem 1rem;
+    color: var(--paper);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.35); }
+  .form-input:focus { border-color: #00D4AA; }
+
+  textarea.form-input { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    background: #00D4AA;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 0.6rem;
+    padding: 0.9rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .form-submit:hover { background: var(--accent3); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080F08;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.82rem;
+    border-top: 2px solid rgba(255,255,255,0.08);
+  }
+  footer strong { color: var(--secondary); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin {
+    from { transform: translate(-50%,-50%) rotate(0deg); }
+    to { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 350px; }
+    section { padding: 4rem 1.5rem; }
+    #why { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.featured { transform: scale(1); }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;">
+    <svg width="36" height="36" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="68" width="52" height="3" rx="1.5" fill="#00D4FF" opacity="0.3"/>
+      <circle cx="20" cy="70" r="3" fill="#00D4FF" opacity="0.5"/>
+      <circle cx="40" cy="70" r="3" fill="#00D4FF" opacity="0.5"/>
+      <circle cx="60" cy="70" r="3" fill="#00D4FF" opacity="0.5"/>
+      <rect x="38" y="28" width="4" height="42" rx="2" fill="#00D4FF"/>
+      <rect x="20" y="46" width="20" height="3" rx="1.5" fill="#00D4FF"/>
+      <rect x="20" y="30" width="3" height="19" rx="1.5" fill="#00D4FF"/>
+      <rect x="42" y="38" width="18" height="3" rx="1.5" fill="#00D4FF"/>
+      <rect x="57" y="28" width="3" height="13" rx="1.5" fill="#00D4FF"/>
+      <circle cx="38" cy="46" r="3.5" fill="#0B1628" stroke="#00D4FF" stroke-width="2"/>
+      <circle cx="38" cy="38" r="3.5" fill="#0B1628" stroke="#00D4FF" stroke-width="2"/>
+      <circle cx="57" cy="38" r="3" fill="#0B1628" stroke="#00D4FF" stroke-width="1.5"/>
+      <ellipse cx="21" cy="22" rx="11" ry="15" fill="#00FF9C" opacity="0.92" transform="rotate(-18 21 22)"/>
+      <ellipse cx="58" cy="20" rx="12" ry="16" fill="#00FF9C" opacity="0.87" transform="rotate(18 58 20)"/>
+      <ellipse cx="40" cy="18" rx="8" ry="11" fill="#00FF9C"/>
+      <circle cx="40" cy="11" r="3.5" fill="#00D4FF"/>
+      <line x1="40" y1="8" x2="40" y2="3" stroke="#00D4FF" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="40" cy="2" r="2" fill="#00D4FF" opacity="0.6"/>
+    </svg>
+    <span style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.02em;color:#E8F0E0;">NSP<span style="color:#00D4AA;"> Works</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-badge">Big Tech. Small Price.</div>
+    <h1 class="hero-title">
+      We build apps<br>that <span class="highlight">actually</span><br>work for you.
+    </h1>
+    <p class="hero-sub">
+      NSP Works helps small and mid-sized Indian businesses adopt modern technology — without the big price tag. Internal tools, dashboards, client portals, and more.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">See Our Work</a>
+      <a href="#contact" class="btn-secondary">Get a Quote</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="floating-tag tag1">₹ Low Cost</div>
+    <div class="floating-tag tag2">🚀 Fast Delivery</div>
+    <div class="floating-tag tag3">📱 Mobile Ready</div>
+    <div class="floating-tag tag4">🔒 Secure</div>
+    <div class="hero-graphic">
+      <div class="circle-big"></div>
+      <div class="circle-mid"></div>
+      <div class="circle-small"></div>
+      <div class="circle-center">NSP<br>Works</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Internal Tools <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Compliance Trackers <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Client Portals <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Workflow Automation <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Dashboards <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Mobile Apps <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Google Workspace Apps <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Internal Tools <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Compliance Trackers <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Client Portals <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Workflow Automation <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Dashboards <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Mobile Apps <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Google Workspace Apps <span class="marquee-dot">●</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Built for businesses<br>that mean business.</h2>
+    <p class="section-sub">We turn your messy spreadsheets, WhatsApp workflows, and manual processes into clean, fast web apps — at a price that makes sense.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card card-orange">
+      <span class="service-icon">📊</span>
+      <h3>Internal Dashboards</h3>
+      <p>Real-time visibility into your business. Track KPIs, team performance, and operations from one place.</p>
+    </div>
+    <div class="service-card card-yellow">
+      <span class="service-icon">⚙️</span>
+      <h3>Workflow Automation</h3>
+      <p>Replace repetitive manual work with smart automated systems. Save hours every week.</p>
+    </div>
+    <div class="service-card card-teal">
+      <span class="service-icon">🏛️</span>
+      <h3>Process Trackers</h3>
+      <p>Track approvals, tasks, deliverables, and business processes — all in one place, without the chaos.</p>
+    </div>
+    <div class="service-card card-purple">
+      <span class="service-icon">🌐</span>
+      <h3>Client Portals</h3>
+      <p>Give your clients a professional web portal to view reports, submit data, and stay in the loop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-label">Portfolio</div>
+  <h2 class="section-title">Real apps.<br>Real clients.</h2>
+  <p class="section-sub">Every project we build solves an actual business problem — not just a demo.</p>
+  <div class="work-grid">
+    <div class="work-card wc1">
+      <span class="work-tag">Reminder App · Mobile</span>
+      <h3>DueBuddy</h3>
+      <p>A mobile payment reminder app for Indian business owners. Tracks payment deadlines and personal bills with 9AM daily notifications, monthly reports, and overdue alerts.</p>
+      <div class="work-stack">
+        <span class="stack-pill">Supabase</span>
+        <span class="stack-pill">Vanilla JS</span>
+        <span class="stack-pill">Capacitor</span>
+        <span class="stack-pill">Android</span>
+      </div>
+    </div>
+    <div class="work-card wc3">
+      <span class="work-tag">Your Project · Next</span>
+      <h3>Could Be Yours 👋</h3>
+      <p>We're actively taking on new clients. If you have a manual process that needs digitizing, let's talk — and we'll build something great together.</p>
+      <div class="work-stack">
+        <span class="stack-pill">Custom Stack</span>
+        <span class="stack-pill">Your Needs</span>
+        <span class="stack-pill">Low Cost</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div>
+    <div class="section-label">Why NSP Works</div>
+    <h2 class="section-title">Tech that fits<br>your budget.</h2>
+    <p class="section-sub">NSP Works is named after my father — a farmer who worked hard, sustained his family, and never gave up. That same spirit drives every app we build. We're lean, honest, and obsessed with delivering real value — without charging enterprise prices.</p>
+    <ul class="why-list">
+      <li class="why-item">
+        <span class="why-icon wi1">💰</span>
+        <div class="why-item-text">
+          <h4>Zero or Near-Zero Hosting Cost</h4>
+          <p>We build on Google Workspace or Supabase free tier — your infra costs stay near ₹0/month.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <span class="why-icon wi2">🇮🇳</span>
+        <div class="why-item-text">
+          <h4>Built for Indian Small Business</h4>
+          <p>We understand how Indian small businesses actually operate — and build tools that fit naturally.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <span class="why-icon wi3">🎓</span>
+        <div class="why-item-text">
+          <h4>We Train Your Team</h4>
+          <p>Non-tech team? No problem. We onboard and train your staff so they can use it confidently.</p>
+        </div>
+      </li>
+      <li class="why-item">
+        <span class="why-icon wi4">⚡</span>
+        <div class="why-item-text">
+          <h4>Fast Turnaround</h4>
+          <p>Most projects delivered in 2–6 weeks. No bloated timelines, no surprises.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="why-visual">
+    <div class="stat-box sb1">
+      <span class="stat-num">3+</span>
+      <span class="stat-label">Apps Delivered</span>
+    </div>
+    <div class="stat-box sb2">
+      <span class="stat-num">₹0</span>
+      <span class="stat-label">Monthly Hosting</span>
+    </div>
+    <div class="stat-box sb3">
+      <span class="stat-num">2–6</span>
+      <span class="stat-label">Weeks Delivery</span>
+    </div>
+    <div class="stat-box sb4">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Custom Built</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">Simple. Transparent. Fair.</h2>
+  <p class="section-sub">No hidden fees. No confusing tiers. Just honest pricing for real work.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">₹15k–30k</div>
+      <div class="price-sub-text">One-time · Single tool</div>
+      <ul class="price-features">
+        <li>Single-purpose web app</li>
+        <li>1 user role</li>
+        <li>Basic dashboard</li>
+        <li>Google Sheets backend</li>
+        <li>2 weeks delivery</li>
+      </ul>
+      <a href="#contact" class="price-btn price-btn-outline">Get Started</a>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="price-tier">Standard</div>
+      <div class="price-amount">₹40k–80k</div>
+      <div class="price-sub-text">One-time · Full app</div>
+      <ul class="price-features">
+        <li>Multi-role web app</li>
+        <li>Login & user management</li>
+        <li>Reports & analytics</li>
+        <li>Supabase / GAS backend</li>
+        <li>Mobile responsive</li>
+        <li>4–6 weeks delivery</li>
+      </ul>
+      <a href="#contact" class="price-btn price-btn-filled">Get Started</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Retainer</div>
+      <div class="price-amount">₹3k–8k</div>
+      <div class="price-sub-text">Per month · Ongoing</div>
+      <ul class="price-features">
+        <li>Bug fixes & updates</li>
+        <li>Small feature additions</li>
+        <li>Priority support</li>
+        <li>Monthly check-in</li>
+        <li>Flexible hours</li>
+      </ul>
+      <a href="#contact" class="price-btn price-btn-outline">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title" style="color:var(--paper)">Let's build something<br>together.</h2>
+  <p class="section-sub">Tell us about your problem. We'll tell you how we can solve it — simply and affordably.</p>
+  <div class="contact-box">
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="Your Name" required/>
+        <input class="form-input" type="text" placeholder="Business Name"/>
+      </div>
+      <input class="form-input" type="email" placeholder="Email Address" required/>
+      <input class="form-input" type="tel" placeholder="WhatsApp / Phone (optional)"/>
+      <textarea class="form-input" placeholder="Tell us about your project — what problem are you trying to solve?" required></textarea>
+      <button class="form-submit" type="submit">Send Message →</button>
+    </form>
+    <div style="display:flex;gap:1rem;margin-top:1.5rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://wa.me/919150338932" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:#25D366;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;border:2px solid rgba(255,255,255,0.3);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+      <a href="/cdn-cgi/l/email-protection#197d72767f7f707a707875282e2928597e74787075377a7674" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.08);color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;border:2px solid rgba(255,255,255,0.2);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        ✉️ <span class="__cf_email__" data-cfemail="294d42464f4f404a404845181e1918694e44484045074a4644">[email&#160;protected]</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>NSP Works</strong> · Built with ❤️ for Indian businesses · Tiruvannamalai, Tamil Nadu</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Smooth reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .work-card, .why-item, .price-card, .stat-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s, background 0.2s';
+    observer.observe(el);
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit
