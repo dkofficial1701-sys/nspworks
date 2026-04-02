@@ -655,7 +655,7 @@
     transition: border-color 0.2s;
     width: 100%;
   }
-  .form-input::placeholder { color: rgba(255,255,255,0.35); }
+  .form-input::placeholder { color: rgba(200,230,210,0.6); }
   .form-input:focus { border-color: #00D4AA; }
 
   textarea.form-input { resize: vertical; min-height: 110px; }
@@ -1013,6 +1013,12 @@
       }
     });
   }, { threshold: 0.1 });
+
+  function openMail() {
+    var u = 'dkofficial1701';
+    var d = 'gmail.com';
+    window.location.href = 'mailto:' + u + '@' + d + '?subject=Project Enquiry from nspworks.in';
+  }
 
   document.querySelectorAll('.service-card, .work-card, .why-item, .price-card, .stat-box').forEach(el => {
     el.style.opacity = '0';
