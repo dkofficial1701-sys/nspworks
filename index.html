@@ -2,847 +2,376 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1RBD5RNZJK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1RBD5RNZJK');
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>NSP Works — Big Tech. Small Price.</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1RBD5RNZJK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-1RBD5RNZJK');</script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --ink: #E8F0E0;
-    --paper: #0D1A0F;
-    --primary: #00D4AA;
-    --secondary: #7FD94A;
-    --accent1: #00B890;
-    --accent2: #1A2E12;
-    --accent3: #A8E063;
-    --card-bg: #142010;
-    --muted: #8AAF7A;
-  }
+:root{
+  --bg:#0A0A0A;
+  --bg2:#111111;
+  --bg3:#161616;
+  --card:#141414;
+  --gold:#C9A84C;
+  --gold-light:#E8C97A;
+  --gold-dim:rgba(201,168,76,0.15);
+  --white:#F5F0E8;
+  --silver:#A8A09A;
+  --border:rgba(201,168,76,0.15);
+  --border2:rgba(255,255,255,0.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;cursor:none;}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Cursor */
+.cursor{width:6px;height:6px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transition:transform 0.15s;}
+.cursor-ring{width:28px;height:28px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;opacity:0.4;transition:all 0.1s;}
 
-  html { scroll-behavior: smooth; }
+/* Subtle grain */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.25;}
 
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    overflow-x: hidden;
-  }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 4rem;background:rgba(10,10,10,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:padding 0.3s;}
+.nav-logo{display:flex;align-items:center;gap:0.8rem;text-decoration:none;}
+.nav-logo-text{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--white);letter-spacing:0.01em;}
+.nav-logo-text span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;}
+.nav-links a{font-size:0.78rem;font-weight:500;color:var(--silver);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:var(--gold)!important;color:#0A0A0A!important;padding:0.55rem 1.4rem!important;border-radius:0.3rem!important;font-weight:600!important;font-size:0.75rem!important;letter-spacing:0.1em!important;text-transform:uppercase!important;transition:all 0.2s!important;}
+.nav-cta:hover{background:var(--gold-light)!important;transform:translateY(-1px)!important;color:#0A0A0A!important;}
 
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
-  }
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:9rem 4rem 5rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.hero-line{position:absolute;top:0;bottom:0;left:4rem;width:1px;background:linear-gradient(180deg,transparent,var(--border),transparent);opacity:0.5;}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 4rem;
-    background: rgba(13,26,15,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(127,217,74,0.2);
-  }
+.hero-eyebrow{font-size:0.72rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2.5rem;display:flex;align-items:center;gap:0.8rem;opacity:0;animation:fadeUp 0.8s 0.2s ease forwards;}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);}
 
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: -0.03em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--primary); }
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(3.5rem,8vw,8rem);line-height:1.02;letter-spacing:-0.01em;margin-bottom:3rem;opacity:0;animation:fadeUp 0.8s 0.35s ease forwards;}
+.hero-title em{font-style:italic;color:var(--gold);}
 
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #8AAF7A;
-    text-decoration: none;
-    position: relative;
-    transition: color 0.2s;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -3px; left: 0;
-    width: 0; height: 2px;
-    background: #00D4AA;
-    transition: width 0.3s ease;
-  }
-  .nav-links a:hover::after { width: 100%; }
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s 0.5s ease forwards;}
+.hero-sub{font-size:1rem;color:var(--silver);line-height:1.8;max-width:400px;font-weight:300;}
+.hero-actions{display:flex;gap:1rem;align-items:center;}
 
-  .nav-cta {
-    background: #00D4AA;
-    color: var(--paper) !important;
-    padding: 0.6rem 1.4rem;
-    border-radius: 2rem;
-    font-weight: 500;
-    transition: background 0.2s, transform 0.2s !important;
-  }
-  .nav-cta:hover { background: #7FD94A !important; color: #0D1A0F !important; transform: translateY(-2px); }
-  .nav-cta::after { display: none !important; }
+.btn-primary{background:var(--gold);color:#0A0A0A;font-family:'Inter',sans-serif;font-weight:600;font-size:0.78rem;padding:0.9rem 2rem;border-radius:0.3rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.5rem;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.2);}
+.btn-ghost{color:var(--silver);font-weight:500;font-size:0.78rem;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;border:1px solid var(--border2);padding:0.9rem 1.5rem;border-radius:0.3rem;}
+.btn-ghost:hover{color:var(--gold);border-color:var(--border);}
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 80px;
-    overflow: hidden;
-  }
+.hero-stats{display:flex;gap:3.5rem;margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--border2);opacity:0;animation:fadeUp 0.8s 0.65s ease forwards;}
+.stat-num{font-family:'DM Serif Display',serif;font-size:3rem;color:var(--white);display:block;line-height:1;}
+.stat-num em{color:var(--gold);font-style:normal;}
+.stat-label{font-size:0.68rem;font-weight:500;color:var(--silver);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.4rem;display:block;}
 
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5rem 3rem 5rem 4rem;
-    position: relative;
-  }
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);background:var(--bg2);padding:0.9rem 0;}
+.marquee-track{display:flex;animation:marquee 30s linear infinite;width:max-content;}
+.marquee-item{font-size:0.72rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--silver);padding:0 2.5rem;}
+.marquee-sep{color:var(--gold);margin:0 0.3rem;}
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(127,217,74,0.15);
-    color: #7FD94A;
-    border: 1px solid rgba(127,217,74,0.4);
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 2rem;
-    border: 2px solid var(--ink);
-    width: fit-content;
-    margin-bottom: 2rem;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-badge::before { content: '⚡'; }
+/* SECTIONS */
+section{padding:8rem 4rem;}
+.section-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.7rem;}
+.section-tag::before{content:'';width:20px;height:1px;background:var(--gold);}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,5rem);line-height:1.05;letter-spacing:-0.01em;}
+.section-title em{font-style:italic;color:var(--gold);}
 
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: clamp(3rem, 5vw, 5rem);
-    line-height: 1.0;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
+/* SERVICES */
+#services{background:var(--bg);}
+.services-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:7rem;align-items:start;margin-top:5rem;}
+.services-intro{color:var(--silver);font-size:0.95rem;line-height:1.85;margin-top:1.5rem;font-weight:300;max-width:360px;}
+.services-list{display:flex;flex-direction:column;}
+.service-item{display:grid;grid-template-columns:2rem 1fr 1.5rem;gap:1.5rem;align-items:start;padding:1.8rem 0;border-bottom:1px solid var(--border2);transition:all 0.3s;cursor:default;}
+.service-item:first-child{border-top:1px solid var(--border2);}
+.service-item:hover{padding-left:0.6rem;}
+.svc-num{font-size:0.75rem;font-weight:600;color:var(--gold);opacity:0.7;padding-top:0.15rem;letter-spacing:0.05em;}
+.svc-info h3{font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;transition:color 0.2s;}
+.service-item:hover .svc-info h3{color:var(--gold);}
+.svc-info p{font-size:0.82rem;color:var(--silver);line-height:1.65;font-weight:300;}
+.svc-arr{font-size:0.9rem;color:var(--border2);transition:all 0.2s;padding-top:0.1rem;}
+.service-item:hover .svc-arr{color:var(--gold);transform:translate(3px,-3px);}
 
-  .hero-title .highlight {
-    position: relative;
-    display: inline-block;
-    color: #00D4AA;
-  }
-  .hero-title .highlight::after {
-    content: '';
-    position: absolute;
-    bottom: 4px; left: 0; right: 0;
-    height: 8px;
-    background: rgba(127,217,74,0.3);
-    z-index: -1;
-    border-radius: 2px;
-  }
+/* WORK */
+#work{background:var(--bg2);}
+.work-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:2rem;}
+.work-sub{font-size:0.88rem;color:var(--silver);max-width:280px;line-height:1.7;font-weight:300;}
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);}
+.work-card{background:var(--bg2);padding:3rem;position:relative;overflow:hidden;transition:background 0.3s;}
+.work-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease;background:linear-gradient(90deg,var(--gold),transparent);}
+.work-card:hover{background:var(--bg3);}
+.work-card:hover::before{transform:scaleX(1);}
+.work-card-wide{grid-column:span 2;}
+.work-idx{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--border2);line-height:1;margin-bottom:1.5rem;transition:color 0.3s;}
+.work-card:hover .work-idx{color:var(--gold-dim);}
+.work-type{font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--silver);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.work-type::before{content:'';width:12px;height:1px;background:var(--gold);}
+.work-card h3{font-family:'DM Serif Display',serif;font-size:1.9rem;margin-bottom:1rem;line-height:1.1;}
+.work-card p{font-size:0.83rem;color:var(--silver);line-height:1.75;margin-bottom:2rem;font-weight:300;}
+.work-stack{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.stack-pill{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--silver);border:1px solid var(--border2);padding:0.25rem 0.7rem;border-radius:0.2rem;transition:all 0.2s;}
+.work-card:hover .stack-pill{border-color:var(--border);color:var(--gold);}
 
-  .hero-sub {
-    font-size: 1.1rem;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 480px;
-    margin-bottom: 2.5rem;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
+/* PROCESS */
+#process{background:var(--bg);}
+.process-layout{display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start;margin-top:5rem;}
+.process-steps{display:flex;flex-direction:column;}
+.process-step{display:grid;grid-template-columns:2.5rem 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid var(--border2);transition:padding 0.2s;}
+.process-step:hover{padding-left:0.5rem;}
+.step-n{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--border2);line-height:1;transition:color 0.3s;}
+.process-step:hover .step-n{color:var(--gold);}
+.step-b h3{font-size:0.92rem;font-weight:600;margin-bottom:0.4rem;transition:color 0.2s;}
+.process-step:hover .step-b h3{color:var(--gold);}
+.step-b p{font-size:0.82rem;color:var(--silver);line-height:1.65;font-weight:300;}
+.process-card{position:sticky;top:8rem;background:var(--card);border:1px solid var(--border);border-radius:0.5rem;padding:3rem;overflow:hidden;}
+.process-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
+.pc-tag{font-size:0.68rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+.pc-title{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1.1;margin-bottom:1.5rem;}
+.pc-body{font-size:0.85rem;color:var(--silver);line-height:1.8;margin-bottom:2rem;font-weight:300;}
+.pc-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.pc-chip{font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:0.3rem 0.8rem;border-radius:0.2rem;}
 
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
+/* ABOUT */
+#about{background:var(--bg2);}
+.about-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:7rem;align-items:start;margin-top:5rem;}
+.about-cards{display:flex;flex-direction:column;gap:1.5rem;}
+.person-card{background:var(--card);border:1px solid var(--border2);border-radius:0.5rem;padding:2.5rem;position:relative;overflow:hidden;transition:border-color 0.3s;}
+.person-card:hover{border-color:var(--border);}
+.person-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
+.person-card:hover::before{opacity:1;}
+.person-role{font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+.person-name{font-family:'DM Serif Display',serif;font-size:1.6rem;line-height:1.1;margin-bottom:0.8rem;}
+.person-bio{font-size:0.83rem;color:var(--silver);line-height:1.7;font-weight:300;}
+.person-skills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem;}
+.p-chip{font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--silver);border:1px solid var(--border2);padding:0.25rem 0.7rem;border-radius:0.2rem;transition:all 0.2s;}
+.person-card:hover .p-chip{border-color:var(--border);color:var(--gold);}
 
-  .btn-primary {
-    background: #00D4AA;
-    color: #fff;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.9rem 2rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    border: 1px solid rgba(0,212,170,0.5);
-    box-shadow: 0 4px 20px rgba(0,212,170,0.2);
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,212,170,0.3); }
+.about-content{}
+.about-story{font-size:0.95rem;color:var(--silver);line-height:1.9;margin-bottom:1.5rem;font-weight:300;}
+.about-quote{border-left:2px solid var(--gold);padding:1.5rem 2rem;margin-bottom:2.5rem;background:var(--card);border-radius:0 0.4rem 0.4rem 0;}
+.about-quote p{font-size:0.92rem;color:var(--white);line-height:1.75;font-style:italic;font-family:'DM Serif Display',serif;}
 
-  .btn-secondary {
-    background: transparent;
-    color: #8AAF7A;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.9rem 2rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    border: 1px solid rgba(127,217,74,0.3);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-  }
-  .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); background: rgba(127,217,74,0.1); color: #7FD94A; }
+/* PRICING */
+#pricing{background:var(--bg);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border2);margin-top:5rem;border-radius:0.5rem;overflow:hidden;}
+.price-card{background:var(--card);padding:3rem 2.5rem;position:relative;transition:background 0.2s;}
+.price-card:hover{background:var(--bg3);}
+.price-card.featured{background:var(--bg3);}
+.featured-badge{position:absolute;top:1.5rem;right:1.5rem;font-size:0.58rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#0A0A0A;background:var(--gold);padding:0.3rem 0.8rem;border-radius:0.2rem;}
+.price-tier{font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--silver);margin-bottom:1.5rem;}
+.price-amt{font-family:'DM Serif Display',serif;font-size:3rem;color:var(--white);line-height:1;margin-bottom:0.3rem;}
+.price-card.featured .price-amt{color:var(--gold);}
+.price-note{font-size:0.72rem;color:var(--silver);margin-bottom:2rem;font-weight:300;}
+.price-divider{height:1px;background:var(--border2);margin-bottom:2rem;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:0.85rem;margin-bottom:2.5rem;}
+.price-features li{font-size:0.82rem;color:var(--silver);display:flex;gap:0.7rem;font-weight:300;}
+.price-features li::before{content:'—';color:var(--gold);flex-shrink:0;}
+.price-btn{display:block;text-align:center;padding:0.85rem;border-radius:0.3rem;font-family:'Inter',sans-serif;font-weight:600;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.price-btn-outline{border:1px solid var(--border2);color:var(--silver);}
+.price-btn-outline:hover{border-color:var(--border);color:var(--gold);}
+.price-btn-filled{background:var(--gold);color:#0A0A0A;}
+.price-btn-filled:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.2);}
 
-  .hero-right {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #0A1A0C;
-    overflow: hidden;
-  }
+/* CONTACT */
+#contact{background:var(--bg2);}
+.contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:7rem;align-items:start;margin-top:5rem;}
+.contact-sub{font-size:0.95rem;color:var(--silver);line-height:1.8;margin-top:1.5rem;font-weight:300;max-width:340px;}
+.contact-items{display:flex;flex-direction:column;gap:0.8rem;margin-top:3rem;}
+.contact-item{display:flex;align-items:center;gap:1.2rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--border2);border-radius:0.4rem;text-decoration:none;color:var(--white);transition:all 0.2s;cursor:none;}
+.contact-item:hover{border-color:var(--border);transform:translateX(5px);}
+.ci-icon{width:36px;height:36px;border-radius:0.3rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--gold-dim);}
+.ci-label{font-size:0.62rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--silver);margin-bottom:0.15rem;}
+.ci-val{font-size:0.88rem;font-weight:500;}
 
-  .hero-graphic {
-    position: relative;
-    width: 380px;
-    height: 380px;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
+.form-wrap{background:var(--card);border:1px solid var(--border);border-radius:0.5rem;padding:3rem;position:relative;overflow:hidden;}
+.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
+.form-heading{font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:2rem;line-height:1.1;}
+.form{display:flex;flex-direction:column;gap:0.9rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+.f-input{background:var(--bg);border:1px solid var(--border2);border-radius:0.3rem;padding:0.9rem 1.2rem;color:var(--white);font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:400;outline:none;transition:border-color 0.2s;width:100%;caret-color:var(--gold);}
+.f-input::placeholder{color:var(--silver);font-weight:300;}
+.f-input:focus{border-color:var(--border);}
+textarea.f-input{resize:vertical;min-height:130px;}
+.f-submit{background:var(--gold);color:#0A0A0A;border:none;border-radius:0.3rem;padding:1rem;font-family:'Inter',sans-serif;font-weight:600;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;cursor:none;transition:all 0.2s;}
+.f-submit:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.2);}
 
-  .circle-big {
-    position: absolute;
-    width: 320px; height: 320px;
-    border-radius: 50%;
-    background: rgba(0,212,170,0.3);
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    animation: spin 20s linear infinite;
-  }
-  .circle-mid {
-    position: absolute;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: rgba(127,217,74,0.3);
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    animation: spin 14s linear infinite reverse;
-  }
-  .circle-small {
-    position: absolute;
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    background: rgba(0,184,144,0.15);
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    animation: spin 8s linear infinite;
-  }
-  .circle-center {
-    position: absolute;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    background: var(--paper);
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 0.9rem;
-    color: var(--ink);
-    z-index: 10;
-  }
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border2);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--white);}
+.footer-logo span{color:var(--gold);}
+.footer-copy{font-size:0.75rem;color:var(--silver);font-weight:300;}
+.footer-copy a{color:var(--gold);text-decoration:none;}
+.footer-tag{font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--silver);}
 
-  .floating-tag {
-    position: absolute;
-    background: var(--paper);
-    border: 2px solid var(--ink);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    box-shadow: 3px 3px 0 var(--ink);
-    white-space: nowrap;
-    animation: float 3s ease-in-out infinite;
-  }
-  .tag1 { top: 10%; left: 5%; animation-delay: 0s; background: rgba(127,217,74,0.15); color: #7FD94A; border-color: rgba(127,217,74,0.4); }
-  .tag2 { bottom: 15%; left: 3%; animation-delay: 0.8s; background: rgba(0,212,170,0.15); color: #00D4AA; border-color: rgba(0,212,170,0.4); }
-  .tag3 { top: 20%; right: 5%; animation-delay: 1.6s; background: rgba(0,184,144,0.15); color: #00B890; border-color: rgba(0,184,144,0.4); }
-  .tag4 { bottom: 10%; right: 3%; animation-delay: 2s; background: rgba(168,224,99,0.15); color: #A8E063; border-color: rgba(168,224,99,0.4); }
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 
-  /* ── MARQUEE ── */
-  .marquee-section {
-    border-top: 2px solid var(--ink);
-    border-bottom: 1px solid rgba(127,217,74,0.2);
-    background: #142010;
-    padding: 0.8rem 0;
-    border-top: 1px solid rgba(127,217,74,0.2);
-    border-bottom: 1px solid rgba(127,217,74,0.2);
-    overflow: hidden;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 0;
-    animation: marquee 20s linear infinite;
-    width: max-content;
-  }
-  .marquee-item {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0 2rem;
-    white-space: nowrap;
-    color: #8AAF7A;
-  }
-  .marquee-dot { color: #00D4AA; margin: 0 0.5rem; }
-
-  /* ── SECTIONS ── */
-  section { padding: 6rem 4rem; }
-
-  .section-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #00D4FF;
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-bottom: 1rem;
-  }
-
-  .section-sub {
-    color: var(--muted);
-    font-size: 1rem;
-    line-height: 1.7;
-    max-width: 520px;
-    margin-bottom: 3rem;
-  }
-
-  /* ── SERVICES ── */
-  #services { background: #0D1A0F; }
-  .services-header { text-align: center; margin-bottom: 4rem; }
-  .services-header .section-sub { margin: 0 auto 3rem; }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .service-card {
-    background: #142010;
-    border: 1px solid rgba(127,217,74,0.15);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: rgba(0,212,170,0.35); }
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-  }
-  .card-orange::before { background: #00D4AA; }
-  .card-yellow::before { background: #7FD94A; }
-  .card-teal::before { background: #00B890; }
-  .card-purple::before { background: #A8E063; }
-
-  .service-icon {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-    display: block;
-  }
-  .service-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.6rem;
-    color: #E8F0E0;
-  }
-  .service-card p {
-    font-size: 0.88rem;
-    color: #8AAF7A;
-    line-height: 1.6;
-  }
-
-  /* ── WORK ── */
-  #work { background: #0B1628; color: #F0F6FF; }
-  #work .section-label { color: #00FF9C; }
-  #work .section-sub { color: #aaa; }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .work-card {
-    border-radius: 1rem;
-    padding: 2.5rem;
-    border: 2px solid rgba(255,255,255,0.15);
-    transition: transform 0.2s, border-color 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .work-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.4); }
-
-  .wc1 { background: linear-gradient(135deg, #0A2A1A 0%, #0D3A20 100%); border: 1px solid rgba(0,212,170,0.3); }
-  .wc2 { background: linear-gradient(135deg, #006644 0%, #00B380 100%); }
-  .wc3 { background: linear-gradient(135deg, #142010 0%, #1A2E12 100%); border: 1px solid rgba(127,217,74,0.2); }
-
-  .work-tag {
-    display: inline-block;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.3rem 0.8rem;
-    border-radius: 2rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.05em;
-  }
-  .work-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    color: #fff;
-    margin-bottom: 0.7rem;
-  }
-  .work-card p {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-  .work-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .stack-pill {
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 500;
-    padding: 0.25rem 0.7rem;
-    border-radius: 2rem;
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-
-  /* ── WHY ── */
-  #why {
-    background: #0A150C;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .why-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; }
-  .why-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-    background: #142010;
-    border: 1px solid rgba(127,217,74,0.2);
-    border-radius: 0.75rem;
-    padding: 1.2rem 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
-  }
-  .why-item:hover { transform: translateY(-3px); border-color: rgba(0,212,170,0.4); }
-  .why-icon {
-    font-size: 1.4rem;
-    flex-shrink: 0;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-  }
-  .wi1 { background: rgba(127,217,74,0.2); }
-  .wi2 { background: rgba(0,212,170,0.15); }
-  .wi3 { background: rgba(0,184,144,0.15); }
-  .wi4 { background: rgba(168,224,99,0.15); }
-
-  .why-item-text h4 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 0.25rem;
-  }
-  .why-item-text p { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
-
-  .why-visual {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .stat-box {
-    border: 1px solid rgba(127,217,74,0.25);
-    border-radius: 1rem;
-    padding: 1.8rem;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  }
-  .sb1 { background: rgba(0,212,170,0.15); color: #00D4AA; }
-  .sb2 { background: rgba(127,217,74,0.15); color: #7FD94A; }
-  .sb3 { background: rgba(0,184,144,0.15); color: #00B890; }
-  .sb4 { background: rgba(168,224,99,0.15); color: #A8E063; }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 2.5rem;
-    display: block;
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .stat-label { font-size: 0.78rem; font-weight: 500; opacity: 0.85; }
-
-  /* ── PRICING ── */
-  #pricing { background: #0D1A0F; text-align: center; }
-  #pricing .section-sub { margin: 0 auto 3rem; }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .price-card {
-    background: #142010;
-    border: 1px solid rgba(127,217,74,0.2);
-    border-radius: 1rem;
-    padding: 2.5rem 2rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-  }
-  .price-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); border-color: rgba(0,212,170,0.4); }
-  .price-card.featured {
-    background: #0A2018;
-    color: #F0F6FF;
-    transform: scale(1.05);
-  }
-  .price-card.featured:hover { transform: scale(1.05) translateY(-5px); }
-
-  .featured-badge {
-    position: absolute;
-    top: -14px; left: 50%; transform: translateX(-50%);
-    background: #00D4AA;
-    color: white;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.3rem 1rem;
-    border-radius: 2rem;
-    border: 1px solid rgba(0,212,170,0.3);
-    white-space: nowrap;
-  }
-
-  .price-tier {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #00D4AA;
-    margin-bottom: 0.5rem;
-  }
-  .price-card.featured .price-tier { color: var(--secondary); }
-
-  .price-amount {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: 2.4rem;
-    line-height: 1;
-    margin-bottom: 0.2rem;
-  }
-  .price-sub-text { font-size: 0.8rem; color: #8AAF7A; margin-bottom: 1.5rem; }
-  .price-card.featured .price-sub-text { color: #aaa; }
-
-  .price-features { list-style: none; text-align: left; margin-bottom: 2rem; }
-  .price-features li {
-    font-size: 0.85rem;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid rgba(127,217,74,0.1);
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-  .price-card.featured .price-features li { border-color: rgba(255,255,255,0.1); }
-  .price-features li::before { content: '✓'; color: var(--accent1); font-weight: 700; }
-
-  .price-btn {
-    display: block;
-    text-align: center;
-    padding: 0.8rem;
-    border-radius: 0.5rem;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-decoration: none;
-    border: 2px solid var(--ink);
-    transition: transform 0.15s, background 0.15s;
-  }
-  .price-btn-outline { background: transparent; color: #8AAF7A; border-color: rgba(127,217,74,0.3); }
-  .price-btn-outline:hover { background: rgba(127,217,74,0.1); border-color: #7FD94A; color: #7FD94A; }
-  .price-btn-filled { background: #00D4AA; color: #0D1A0F; }
-  .price-btn-filled:hover { background: #7FD94A; }
-
-  /* ── CONTACT ── */
-  #contact {
-    background: #0F2018;
-    color: #F0F6FF;
-    text-align: center;
-  }
-  #contact .section-label { color: #00FF9C; }
-  #contact .section-sub { color: #A0C0A8; margin: 0 auto 2.5rem; }
-
-  .contact-box {
-    background: rgba(127,217,74,0.08);
-    border: 1px solid rgba(0,212,170,0.3);
-    border-radius: 1.5rem;
-    padding: 3rem;
-    max-width: 580px;
-    margin: 0 auto;
-  }
-
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-  .form-input {
-    background: rgba(127,217,74,0.08);
-    border: 1px solid rgba(0,212,170,0.3);
-    border-radius: 0.6rem;
-    padding: 0.85rem 1rem;
-    color: var(--paper);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-  .form-input::placeholder { color: rgba(200,230,210,0.6); }
-  .form-input:focus { border-color: #00D4AA; }
-
-  textarea.form-input { resize: vertical; min-height: 110px; }
-
-  .form-submit {
-    background: #00D4AA;
-    color: white;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 0.6rem;
-    padding: 0.9rem;
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .form-submit:hover { background: var(--accent3); transform: translateY(-2px); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: #080F08;
-    color: rgba(255,255,255,0.5);
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.82rem;
-    border-top: 2px solid rgba(255,255,255,0.08);
-  }
-  footer strong { color: var(--secondary); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes spin {
-    from { transform: translate(-50%,-50%) rotate(0deg); }
-    to { transform: translate(-50%,-50%) rotate(360deg); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media(max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { height: 350px; }
-    section { padding: 4rem 1.5rem; }
-    #why { grid-template-columns: 1fr; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .price-card.featured { transform: scale(1); }
-    .form-row { grid-template-columns: 1fr; }
-  }
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  section{padding:5rem 1.5rem;}
+  .hero{padding:7rem 1.5rem 4rem;}
+  .hero-line{display:none;}
+  .services-layout,.process-layout,.about-layout,.contact-layout{grid-template-columns:1fr;gap:3rem;}
+  .work-grid{grid-template-columns:1fr;}
+  .work-card-wide{grid-column:span 1;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:2rem;}
+  .form-row{grid-template-columns:1fr;}
+  footer{flex-direction:column;text-align:center;}
+}
 </style>
 </head>
 <body>
 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;">
-    <svg width="36" height="36" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-      <rect x="14" y="68" width="52" height="3" rx="1.5" fill="#00D4FF" opacity="0.3"/>
-      <circle cx="20" cy="70" r="3" fill="#00D4FF" opacity="0.5"/>
-      <circle cx="40" cy="70" r="3" fill="#00D4FF" opacity="0.5"/>
-      <circle cx="60" cy="70" r="3" fill="#00D4FF" opacity="0.5"/>
-      <rect x="38" y="28" width="4" height="42" rx="2" fill="#00D4FF"/>
-      <rect x="20" y="46" width="20" height="3" rx="1.5" fill="#00D4FF"/>
-      <rect x="20" y="30" width="3" height="19" rx="1.5" fill="#00D4FF"/>
-      <rect x="42" y="38" width="18" height="3" rx="1.5" fill="#00D4FF"/>
-      <rect x="57" y="28" width="3" height="13" rx="1.5" fill="#00D4FF"/>
-      <circle cx="38" cy="46" r="3.5" fill="#0B1628" stroke="#00D4FF" stroke-width="2"/>
-      <circle cx="38" cy="38" r="3.5" fill="#0B1628" stroke="#00D4FF" stroke-width="2"/>
-      <circle cx="57" cy="38" r="3" fill="#0B1628" stroke="#00D4FF" stroke-width="1.5"/>
-      <ellipse cx="21" cy="22" rx="11" ry="15" fill="#00FF9C" opacity="0.92" transform="rotate(-18 21 22)"/>
-      <ellipse cx="58" cy="20" rx="12" ry="16" fill="#00FF9C" opacity="0.87" transform="rotate(18 58 20)"/>
-      <ellipse cx="40" cy="18" rx="8" ry="11" fill="#00FF9C"/>
-      <circle cx="40" cy="11" r="3.5" fill="#00D4FF"/>
-      <line x1="40" y1="8" x2="40" y2="3" stroke="#00D4FF" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="40" cy="2" r="2" fill="#00D4FF" opacity="0.6"/>
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="68" width="52" height="3" rx="1.5" fill="#C9A84C" opacity="0.3"/>
+      <circle cx="20" cy="70" r="3" fill="#C9A84C" opacity="0.5"/>
+      <circle cx="40" cy="70" r="3" fill="#C9A84C" opacity="0.5"/>
+      <circle cx="60" cy="70" r="3" fill="#C9A84C" opacity="0.5"/>
+      <rect x="38" y="28" width="4" height="42" rx="2" fill="#C9A84C"/>
+      <rect x="20" y="46" width="20" height="3" rx="1.5" fill="#C9A84C"/>
+      <rect x="20" y="30" width="3" height="19" rx="1.5" fill="#C9A84C"/>
+      <rect x="42" y="38" width="18" height="3" rx="1.5" fill="#C9A84C"/>
+      <rect x="57" y="28" width="3" height="13" rx="1.5" fill="#C9A84C"/>
+      <circle cx="38" cy="46" r="3.5" fill="#0A0A0A" stroke="#C9A84C" stroke-width="2"/>
+      <circle cx="38" cy="38" r="3.5" fill="#0A0A0A" stroke="#C9A84C" stroke-width="2"/>
+      <circle cx="57" cy="38" r="3" fill="#0A0A0A" stroke="#C9A84C" stroke-width="1.5"/>
+      <ellipse cx="21" cy="22" rx="11" ry="15" fill="#C9A84C" opacity="0.75" transform="rotate(-18 21 22)"/>
+      <ellipse cx="58" cy="20" rx="12" ry="16" fill="#C9A84C" opacity="0.6" transform="rotate(18 58 20)"/>
+      <ellipse cx="40" cy="18" rx="8" ry="11" fill="#C9A84C" opacity="0.9"/>
+      <circle cx="40" cy="11" r="3.5" fill="#C9A84C"/>
     </svg>
-    <span style="font-family:'Playfair Display',serif;font-weight:800;font-size:1.4rem;letter-spacing:-0.02em;color:#E8F0E0;">NSP<span style="color:#00D4AA;"> Works</span></span>
+    <span class="nav-logo-text">NSP<span>Works</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-left">
-    <div class="hero-badge">Big Tech. Small Price.</div>
-    <h1 class="hero-title">
-      We build apps<br>that <span class="highlight">actually</span><br>work for you.
-    </h1>
-    <p class="hero-sub">
-      NSP Works helps small and mid-sized Indian businesses adopt modern technology — without the big price tag. Internal tools, dashboards, client portals, and more.
-    </p>
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-line"></div>
+  <div class="hero-eyebrow">Tiruvannamalai, Tamil Nadu · Est. 2025</div>
+  <h1 class="hero-title">
+    We build apps<br>
+    that <em>actually</em><br>
+    work for you.
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-sub">NSP Works helps small Indian businesses adopt technology — without the complexity or the big price tag. Real apps, built fast, that your team can use from day one.</p>
     <div class="hero-actions">
-      <a href="#work" class="btn-primary">See Our Work</a>
-      <a href="#contact" class="btn-secondary">Get a Quote</a>
+      <a href="#work" class="btn-primary">See Our Work ↗</a>
+      <a href="#contact" class="btn-ghost">Start a Project</a>
     </div>
   </div>
-
-  <div class="hero-right">
-    <div class="floating-tag tag1">₹ Low Cost</div>
-    <div class="floating-tag tag2">🚀 Fast Delivery</div>
-    <div class="floating-tag tag3">📱 Mobile Ready</div>
-    <div class="floating-tag tag4">🔒 Secure</div>
-    <div class="hero-graphic">
-      <div class="circle-big"></div>
-      <div class="circle-mid"></div>
-      <div class="circle-small"></div>
-      <div class="circle-center">NSP<br>Works</div>
-    </div>
+  <div class="hero-stats">
+    <div><span class="stat-num">3<em>+</em></span><span class="stat-label">Projects Delivered</span></div>
+    <div><span class="stat-num">₹<em>0</em></span><span class="stat-label">Monthly Hosting</span></div>
+    <div><span class="stat-num">2<em>–6</em></span><span class="stat-label">Weeks Delivery</span></div>
+    <div><span class="stat-num">100<em>%</em></span><span class="stat-label">Custom Built</span></div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-section">
+<div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">Internal Tools <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Compliance Trackers <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Client Portals <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Workflow Automation <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Dashboards <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Mobile Apps <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Google Workspace Apps <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Internal Tools <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Compliance Trackers <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Client Portals <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Workflow Automation <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Dashboards <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Mobile Apps <span class="marquee-dot">●</span></span>
-    <span class="marquee-item">Google Workspace Apps <span class="marquee-dot">●</span></span>
+    <span class="marquee-item">Internal Tools <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Workflow Automation <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Client Portals <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Process Trackers <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Dashboards <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Mobile Apps <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Invoice Systems <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Google Workspace <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Internal Tools <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Workflow Automation <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Client Portals <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Process Trackers <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Dashboards <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Mobile Apps <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Invoice Systems <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Google Workspace <span class="marquee-sep">✦</span></span>
   </div>
 </div>
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="services-header">
-    <div class="section-label">What We Do</div>
-    <h2 class="section-title">Built for businesses<br>that mean business.</h2>
-    <p class="section-sub">We turn your messy spreadsheets, WhatsApp workflows, and manual processes into clean, fast web apps — at a price that makes sense.</p>
-  </div>
-  <div class="services-grid">
-    <div class="service-card card-orange">
-      <span class="service-icon">📊</span>
-      <h3>Internal Dashboards</h3>
-      <p>Real-time visibility into your business. Track KPIs, team performance, and operations from one place.</p>
+  <div class="section-tag reveal">What We Do</div>
+  <div class="services-layout">
+    <div class="reveal">
+      <h2 class="section-title">Built for businesses<br>that mean <em>business.</em></h2>
+      <p class="services-intro">We take your manual processes — spreadsheets, WhatsApp threads, paper notes — and turn them into clean, fast web apps your team can use from day one.</p>
     </div>
-    <div class="service-card card-yellow">
-      <span class="service-icon">⚙️</span>
-      <h3>Workflow Automation</h3>
-      <p>Replace repetitive manual work with smart automated systems. Save hours every week.</p>
-    </div>
-    <div class="service-card card-teal">
-      <span class="service-icon">🏛️</span>
-      <h3>Process Trackers</h3>
-      <p>Track approvals, tasks, deliverables, and business processes — all in one place, without the chaos.</p>
-    </div>
-    <div class="service-card card-purple">
-      <span class="service-icon">🌐</span>
-      <h3>Client Portals</h3>
-      <p>Give your clients a professional web portal to view reports, submit data, and stay in the loop.</p>
+    <div class="services-list reveal">
+      <div class="service-item">
+        <span class="svc-num">01</span>
+        <div class="svc-info"><h3>Internal Dashboards</h3><p>Real-time visibility into your operations. Track KPIs, team performance, and business data from one place.</p></div>
+        <span class="svc-arr">↗</span>
+      </div>
+      <div class="service-item">
+        <span class="svc-num">02</span>
+        <div class="svc-info"><h3>Workflow Automation</h3><p>Replace repetitive manual work with smart systems. Save hours every week and reduce errors.</p></div>
+        <span class="svc-arr">↗</span>
+      </div>
+      <div class="service-item">
+        <span class="svc-num">03</span>
+        <div class="svc-info"><h3>Process Trackers</h3><p>Track approvals, tasks, and deliverables in one clean place. No more chasing on WhatsApp.</p></div>
+        <span class="svc-arr">↗</span>
+      </div>
+      <div class="service-item">
+        <span class="svc-num">04</span>
+        <div class="svc-info"><h3>Client Portals</h3><p>Give clients a professional portal to submit data, view reports, and track orders in real time.</p></div>
+        <span class="svc-arr">↗</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WORK -->
 <section id="work">
-  <div class="section-label">Portfolio</div>
-  <h2 class="section-title">Real apps.<br>Real clients.</h2>
-  <p class="section-sub">Every project we build solves an actual business problem — not just a demo.</p>
-  <div class="work-grid">
-    <div class="work-card wc1">
-      <span class="work-tag">Reminder App · Mobile</span>
+  <div class="work-header">
+    <div>
+      <div class="section-tag reveal">Portfolio</div>
+      <h2 class="section-title reveal">Real apps.<br><em>Real clients.</em></h2>
+    </div>
+    <p class="work-sub reveal">Every project solves a real business problem — not just a demo.</p>
+  </div>
+  <div class="work-grid reveal">
+    <div class="work-card">
+      <div class="work-idx">01</div>
+      <div class="work-type">Lab Management · Web App · Chennai</div>
+      <h3>Wings Dental Laboratory</h3>
+      <p>A complete dental lab management system replacing paper-based workflows. Manages job cards, doctor records, invoice generation, warranty cards, alteration tracking, and warranty claims — all from one web app.</p>
+      <div class="work-stack">
+        <span class="stack-pill">Google Apps Script</span>
+        <span class="stack-pill">Google Sheets</span>
+        <span class="stack-pill">PDF Generation</span>
+        <span class="stack-pill">Multi-role Access</span>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="work-idx">02</div>
+      <div class="work-type">Reminder App · Android · India</div>
       <h3>DueBuddy</h3>
-      <p>A mobile payment reminder app for Indian business owners. Tracks payment deadlines and personal bills with 9AM daily notifications, monthly reports, and overdue alerts.</p>
+      <p>A mobile payment reminder app for Indian business owners. Tracks payment deadlines and personal bills with daily notifications, monthly reports, and overdue alerts. Zero monthly cost for users.</p>
       <div class="work-stack">
         <span class="stack-pill">Supabase</span>
         <span class="stack-pill">Vanilla JS</span>
@@ -850,119 +379,146 @@
         <span class="stack-pill">Android</span>
       </div>
     </div>
-    <div class="work-card wc3">
-      <span class="work-tag">Your Project · Next</span>
-      <h3>Could Be Yours 👋</h3>
-      <p>We're actively taking on new clients. If you have a manual process that needs digitizing, let's talk — and we'll build something great together.</p>
+    <div class="work-card work-card-wide">
+      <div class="work-idx">03</div>
+      <div class="work-type">Your Project · Next Up</div>
+      <h3>Could Be Yours</h3>
+      <p>We're actively taking on new clients across Tamil Nadu and India. If you have a manual process that needs digitizing — a tracker, a portal, an invoice system — let's talk and build something great together at a price that makes sense.</p>
       <div class="work-stack">
         <span class="stack-pill">Custom Stack</span>
         <span class="stack-pill">Your Needs</span>
         <span class="stack-pill">Low Cost</span>
+        <span class="stack-pill">Fast Delivery</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section id="why">
-  <div>
-    <div class="section-label">Why NSP Works</div>
-    <h2 class="section-title">Tech that fits<br>your budget.</h2>
-    <p class="section-sub">NSP Works is named after my father — a farmer who worked hard, sustained his family, and never gave up. That same spirit drives every app we build. We're lean, honest, and obsessed with delivering real value — without charging enterprise prices.</p>
-    <ul class="why-list">
-      <li class="why-item">
-        <span class="why-icon wi1">💰</span>
-        <div class="why-item-text">
-          <h4>Zero or Near-Zero Hosting Cost</h4>
-          <p>We build on Google Workspace or Supabase free tier — your infra costs stay near ₹0/month.</p>
-        </div>
-      </li>
-      <li class="why-item">
-        <span class="why-icon wi2">🇮🇳</span>
-        <div class="why-item-text">
-          <h4>Built for Indian Small Business</h4>
-          <p>We understand how Indian small businesses actually operate — and build tools that fit naturally.</p>
-        </div>
-      </li>
-      <li class="why-item">
-        <span class="why-icon wi3">🎓</span>
-        <div class="why-item-text">
-          <h4>We Train Your Team</h4>
-          <p>Non-tech team? No problem. We onboard and train your staff so they can use it confidently.</p>
-        </div>
-      </li>
-      <li class="why-item">
-        <span class="why-icon wi4">⚡</span>
-        <div class="why-item-text">
-          <h4>Fast Turnaround</h4>
-          <p>Most projects delivered in 2–6 weeks. No bloated timelines, no surprises.</p>
-        </div>
-      </li>
-    </ul>
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-tag reveal">How We Work</div>
+  <div class="process-layout">
+    <div class="process-steps reveal">
+      <h2 class="section-title" style="margin-bottom:3rem;">Simple process.<br><em>Zero surprises.</em></h2>
+      <div class="process-step">
+        <span class="step-n">01</span>
+        <div class="step-b"><h3>Discovery Call</h3><p>Free 15-minute chat. We understand your problem, your team, and what you need. No tech jargon.</p></div>
+      </div>
+      <div class="process-step">
+        <span class="step-n">02</span>
+        <div class="step-b"><h3>Proposal & Quote</h3><p>Clear scope, fixed price. No surprises, no hidden fees. You approve before we write a single line of code.</p></div>
+      </div>
+      <div class="process-step">
+        <span class="step-n">03</span>
+        <div class="step-b"><h3>Build & Review</h3><p>We build in stages and show you progress. You give feedback, we refine. Usually 2–6 weeks.</p></div>
+      </div>
+      <div class="process-step">
+        <span class="step-n">04</span>
+        <div class="step-b"><h3>Launch & Train</h3><p>We deploy and train your team. Non-tech staff? No problem — we make sure everyone's comfortable.</p></div>
+      </div>
+    </div>
+    <div class="process-card reveal">
+      <div class="pc-tag">Our Promise</div>
+      <div class="pc-title">Zero hosting cost apps</div>
+      <p class="pc-body">We build on Google Workspace or Supabase free tier — your infrastructure costs stay near ₹0 per month. Your investment goes into the app, not server bills.</p>
+      <div class="pc-tags">
+        <span class="pc-chip">Google Apps Script</span>
+        <span class="pc-chip">Supabase</span>
+        <span class="pc-chip">Vanilla JS</span>
+        <span class="pc-chip">Android</span>
+        <span class="pc-chip">Custom Stack</span>
+      </div>
+    </div>
   </div>
-  <div class="why-visual">
-    <div class="stat-box sb1">
-      <span class="stat-num">3+</span>
-      <span class="stat-label">Apps Delivered</span>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag reveal">The Team</div>
+  <div class="about-layout">
+    <div class="about-cards reveal">
+      <div class="person-card">
+        <div class="person-role">Co-founder · Technology</div>
+        <div class="person-name">Dinesh Kumar Periyasamy</div>
+        <p class="person-bio">A developer from Tiruvannamalai who builds affordable web apps for small businesses. Every line of code is written with purpose and care.</p>
+        <div class="person-skills">
+          <span class="p-chip">Google Apps Script</span>
+          <span class="p-chip">Supabase</span>
+          <span class="p-chip">JavaScript</span>
+          <span class="p-chip">Android</span>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-role">Co-founder · Business</div>
+        <div class="person-name">Yogasundharam</div>
+        <p class="person-bio">The business mind behind NSP Works. Connects the right clients with the right solutions and ensures every project delivers real value.</p>
+        <div class="person-skills">
+          <span class="p-chip">Client Relations</span>
+          <span class="p-chip">Business Dev</span>
+          <span class="p-chip">Project Mgmt</span>
+        </div>
+      </div>
     </div>
-    <div class="stat-box sb2">
-      <span class="stat-num">₹0</span>
-      <span class="stat-label">Monthly Hosting</span>
-    </div>
-    <div class="stat-box sb3">
-      <span class="stat-num">2–6</span>
-      <span class="stat-label">Weeks Delivery</span>
-    </div>
-    <div class="stat-box sb4">
-      <span class="stat-num">100%</span>
-      <span class="stat-label">Custom Built</span>
+    <div class="about-content reveal">
+      <h2 class="section-title" style="margin-bottom:2rem;">Built on <em>values,</em><br>not just code.</h2>
+      <p class="about-story">NSP Works is named after Dinesh's father — a man who worked in agriculture, did everything with full dedication, and sustained his family through honest hard work. That spirit is what drives every project we take on.</p>
+      <p class="about-story">We started NSP Works because small businesses in India are stuck with manual processes while expensive SaaS tools are out of reach. We bridge that gap — real technology, right price.</p>
+      <div class="about-quote">
+        <p>"When a small business owner in Tiruvannamalai can run their entire operation from an app we built — that's a good day's work."</p>
+      </div>
+      <a href="#contact" class="btn-primary">Start a Conversation ↗</a>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section id="pricing">
-  <div class="section-label">Pricing</div>
-  <h2 class="section-title">Simple. Transparent. Fair.</h2>
-  <p class="section-sub">No hidden fees. No confusing tiers. Just honest pricing for real work.</p>
-  <div class="pricing-grid">
+  <div class="section-tag reveal">Investment</div>
+  <h2 class="section-title reveal">Simple. <em>Transparent.</em> Fair.</h2>
+  <div class="pricing-grid reveal">
     <div class="price-card">
       <div class="price-tier">Starter</div>
-      <div class="price-amount">₹6k–10k</div>
-      <div class="price-sub-text">One-time · Single tool</div>
+      <div class="price-amt">₹6k–10k</div>
+      <div class="price-note">One-time · Single tool</div>
+      <div class="price-divider"></div>
       <ul class="price-features">
         <li>Single-purpose web app</li>
         <li>1 user role</li>
-        <li>Basic dashboard</li>
+        <li>Basic dashboard or tracker</li>
         <li>Google Sheets backend</li>
         <li>2 weeks delivery</li>
+        <li>1 round of revisions</li>
       </ul>
       <a href="#contact" class="price-btn price-btn-outline">Get Started</a>
     </div>
     <div class="price-card featured">
       <div class="featured-badge">Most Popular</div>
       <div class="price-tier">Standard</div>
-      <div class="price-amount">₹15k–30k</div>
-      <div class="price-sub-text">One-time · Full app</div>
+      <div class="price-amt">₹15k–30k</div>
+      <div class="price-note">One-time · Full app</div>
+      <div class="price-divider"></div>
       <ul class="price-features">
         <li>Multi-role web app</li>
         <li>Login & user management</li>
         <li>Reports & analytics</li>
+        <li>PDF generation</li>
         <li>Supabase / GAS backend</li>
         <li>Mobile responsive</li>
         <li>4–6 weeks delivery</li>
+        <li>3 rounds of revisions</li>
       </ul>
       <a href="#contact" class="price-btn price-btn-filled">Get Started</a>
     </div>
     <div class="price-card">
       <div class="price-tier">Retainer</div>
-      <div class="price-amount">₹2k–5k</div>
-      <div class="price-sub-text">Per month · Ongoing</div>
+      <div class="price-amt">₹2k–5k</div>
+      <div class="price-note">Per month · Ongoing</div>
+      <div class="price-divider"></div>
       <ul class="price-features">
         <li>Bug fixes & updates</li>
         <li>Small feature additions</li>
         <li>Priority support</li>
-        <li>Monthly check-in</li>
+        <li>Monthly check-in call</li>
         <li>Flexible hours</li>
       </ul>
       <a href="#contact" class="price-btn price-btn-outline">Get Started</a>
@@ -972,61 +528,76 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">Contact</div>
-  <h2 class="section-title" style="color:#E8F0E0;">Let's build something<br>together.</h2>
-  <p class="section-sub">Tell us about your problem. We'll tell you how we can solve it — simply and affordably.</p>
-  <div class="contact-box">
-    <form class="contact-form" onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <input class="form-input" type="text" placeholder="Your Name" required/>
-        <input class="form-input" type="text" placeholder="Business Name"/>
+  <div class="section-tag reveal">Get In Touch</div>
+  <div class="contact-layout">
+    <div class="reveal">
+      <h2 class="section-title">Let's build<br>something<br><em>together.</em></h2>
+      <p class="contact-sub">Tell us about your problem. We'll tell you how to solve it — simply and affordably.</p>
+      <div class="contact-items">
+        <button onclick="openMail()" class="contact-item" style="background:var(--card);border:1px solid var(--border2);text-align:left;width:100%;cursor:none;">
+          <div class="ci-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          </div>
+          <div><div class="ci-label">Email</div><div class="ci-val">Send us a message</div></div>
+        </button>
+        <div class="contact-item" style="cursor:default;">
+          <div class="ci-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><div class="ci-label">Location</div><div class="ci-val">Tiruvannamalai, Tamil Nadu</div></div>
+        </div>
       </div>
-      <input class="form-input" type="email" placeholder="Email Address" required/>
-      <input class="form-input" type="tel" placeholder="WhatsApp / Phone (optional)"/>
-      <textarea class="form-input" placeholder="Tell us about your project — what problem are you trying to solve?" required></textarea>
-      <button class="form-submit" type="submit">Send Message →</button>
-    </form>
-    <div style="display:flex;gap:1rem;margin-top:1.5rem;justify-content:center;flex-wrap:wrap;">
-      <a href="https://wa.me/919150338932" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:#25D366;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;border:2px solid rgba(255,255,255,0.3);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Chat on WhatsApp
-      </a>
-      <a href="/cdn-cgi/l/email-protection#197d72767f7f707a707875282e2928597e74787075377a7674" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.08);color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;border:2px solid rgba(255,255,255,0.2);transition:transform 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-        ✉️ <span class="__cf_email__" data-cfemail="294d42464f4f404a404845181e1918694e44484045074a4644">[email&#160;protected]</span>
-      </a>
+    </div>
+    <div class="form-wrap reveal">
+      <div class="form-heading">Start a Project</div>
+      <form class="form" action="https://formspree.io/f/xjgpevvd" method="POST" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input class="f-input" type="text" name="name" placeholder="Your Name" required/>
+          <input class="f-input" type="text" name="business" placeholder="Business Name"/>
+        </div>
+        <input class="f-input" type="email" name="email" placeholder="Email Address" required/>
+        <input class="f-input" type="tel" name="phone" placeholder="WhatsApp / Phone (optional)"/>
+        <textarea class="f-input" name="message" placeholder="Tell us about your project — what problem are you trying to solve?" required></textarea>
+        <button class="f-submit" type="submit">Send Message →</button>
+      </form>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 <strong>NSP Works</strong> · Built with ❤️ for Indian businesses · Tiruvannamalai, Tamil Nadu</p>
+  <div class="footer-logo">NSP<span>Works</span></div>
+  <div class="footer-copy">© 2025 NSP Works · <a href="http://nspworks.in">nspworks.in</a> · Tiruvannamalai, Tamil Nadu</div>
+  <div class="footer-tag">Big Tech. Small Price.</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Smooth reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-3+'px';cursor.style.top=my-3+'px';});
+(function anim(){rx+=(mx-rx-14)*0.1;ry+=(my-ry-14)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.service-item,.work-card,.price-card,.person-card,.contact-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(3)';ring.style.opacity='0.15';ring.style.transform='scale(1.5)';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.opacity='0.4';ring.style.transform='scale(1)';});
+});
 
-  function openMail() {
-    var u = 'dkofficial1701';
-    var d = 'gmail.com';
-    window.location.href = 'mailto:' + u + '@' + d + '?subject=Project Enquiry from nspworks.in';
-  }
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-  document.querySelectorAll('.service-card, .work-card, .why-item, .price-card, .stat-box').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s, background 0.2s';
-    observer.observe(el);
-  });
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.padding=window.scrollY>60?'0.8rem 4rem':'1.5rem 4rem';});
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit
+function openMail(){var u='dkofficial1701',d='gmail.com';window.location.href='mailto:'+u+'@'+d+'?subject=Project Enquiry — NSP Works';}
+
+async function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.f-submit'),form=e.target;
+  btn.textContent='Sending...';btn.disabled=true;
+  try{
+    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+    if(res.ok){btn.textContent='✓ Sent!';btn.style.background='#4A7C59';form.reset();setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';btn.disabled=false;},4000);}
+    else{btn.textContent='Error — Try Email';btn.style.background='#7C4A4A';btn.disabled=false;}
+  }catch{btn.textContent='Error — Try Email';btn.style.background='#7C4A4A';btn.disabled=false;}
+}
+</script>
+</body>
+</html>
